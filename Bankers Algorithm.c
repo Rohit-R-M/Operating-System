@@ -66,37 +66,6 @@ void readMax(int n, int m)
         }
     }
 }
-
-//display the allocation matrix
-void displayAllot(int n, int m) 
-{
-    int i, j;
-    printf("Allocation Matrix:\n");
-    for (i = 0; i < n; i++) 
-    {
-        for (j = 0; j < m; j++) 
-	{
-            printf("%d ", allot[i][j]);
-        }
-        printf("\n");
-    }
-}
-
-// display the maximum matrix
-void displayMax(int n, int m) 
-{
-    int i, j;
-    printf("Maximum Demand Matrix:\n");
-    for (i = 0; i < n; i++) 
-    {
-        for (j = 0; j < m; j++) 
-	{
-            printf("%d ", max[i][j]);
-        }
-        printf("\n");
-    }
-}
-
 //check if the system is in a safe state
 void isSafe(int n, int m) 
 {
