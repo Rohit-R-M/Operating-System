@@ -11,7 +11,7 @@ int need[max_p][max_r], allot[max_p][max_r], max[max_p][max_r], available[max_r]
 bool isFinished[max_p];
 int sequence[max_p];
 
-// Function to calculate the need matrix
+// Calculate the need matrix
 void calculateNeed(int n, int m) 
 {
     int i, j;
@@ -24,7 +24,7 @@ void calculateNeed(int n, int m)
     }
 }
 
-// Function to display the need matrix
+//display the need matrix
 void displayNeed(int n, int m) 
 {
     int i, j;
@@ -39,7 +39,7 @@ void displayNeed(int n, int m)
     }
 }
 
-// Function to read the allocation matrix from the user
+//read the allocation matrix
 void readAllot(int n, int m) 
 {
     int i, j;
@@ -53,7 +53,7 @@ void readAllot(int n, int m)
     }
 }
 
-// Function to read the maximum demand matrix from the user
+//read the maximum matrix
 void readMax(int n, int m) 
 {
     int i, j;
@@ -67,7 +67,7 @@ void readMax(int n, int m)
     }
 }
 
-// Function to display the allocation matrix
+//display the allocation matrix
 void displayAllot(int n, int m) 
 {
     int i, j;
@@ -82,7 +82,7 @@ void displayAllot(int n, int m)
     }
 }
 
-// Function to display the maximum demand matrix
+// display the maximum matrix
 void displayMax(int n, int m) 
 {
     int i, j;
@@ -97,7 +97,7 @@ void displayMax(int n, int m)
     }
 }
 
-// Function to check if the system is in a safe state
+//check if the system is in a safe state
 void isSafe(int n, int m) 
 {
     int i, j, work[max_r], count = 0;
