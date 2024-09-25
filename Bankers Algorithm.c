@@ -1,179 +1,137 @@
-//Bankers Algorithm 
+#include<stdio.h>
+#include<stdlib.h>
+#include<stdbool.h>
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
+int need[100][100],allot[100][100],max[100][100],available[100];
+bool isFinished[100];
+int sequence[100];
 
-#define max_p 100
-#define max_r 100
-
-int need[max_p][max_r], allot[max_p][max_r], max[max_p][max_r], available[max_r];
-bool isFinished[max_p];
-int sequence[max_p];
-
-// Calculate the need matrix
-void calculateNeed(int n, int m) 
+void isSafe(int N,int M)
 {
-    int i, j;
-    for (i = 0; i < n; i++) 
-    {
-        for (j = 0; j < m; j++) 
-	{
-            need[i][j] = max[i][j] - allot[i][j];
-        }
-    }
-}
-
-//display the need matrix
-void displayNeed(int n, int m) 
-{
-    int i, j;
-    printf("Need Matrix:\n");
-    for (i = 0; i < n; i++) 
-    {
-        for (j = 0; j < m; j++)
-	{
-            printf("%d ", need[i][j]);
-        }
-        printf("\n");
-    }
-}
-
-//read the allocation matrix
-void readAllot(int n, int m) 
-{
-    int i, j;
-    printf("Enter the Allocation Matrix:\n");
-    for (i = 0; i < n; i++) 
-    {
-        for (j = 0; j < m; j++) 
-	{
-            scanf("%d", &allot[i][j]);
-        }
-    }
-}
-
-//read the maximum matrix
-void readMax(int n, int m) 
-{
-    int i, j;
-    printf("Enter the matrix for maximum demand of each process:\n");
-    for (i = 0; i < n; i++) 
-    {
-        for (j = 0; j < m; j++) 
-	{
-            scanf("%d", &max[i][j]);
-        }
-    }
-}
-//check if the system is in a safe state
-void isSafe(int n, int m) 
-{
-    int i, j, work[max_r], count = 0;
-    for (i = 0; i < m; i++) 
-    {
-        work[i] = available[i];
-    }
-    for (i = 0; i < n; i++) 
-    {
-        isFinished[i] = false;
-    }
-    while (count < n) 
-    {
-        bool canAllot = false;
-        for (i = 0; i < n; i++) 
-	{
-            if (isFinished[i] == false) 
-	    {
-                for (j = 0; j < m; j++) 
-		{
-                    if (work[j] < need[i][j]) 
-		    {
-                        break;
-                    }
-                }
-                if (j == m) 
-		{
-                    for (j = 0; j < m; j++) 
-		    {
-                        work[j] += allot[i][j];
-                    }
-                    sequence[count++] = i;
-                    isFinished[i] = true;
-                    canAllot = true;
-                }
-            }
-        }
-        if (canAllot == false) 
-	    {
-            printf("System Is not safe\n");
-            return;
-        }
-        for(i=0;i<n;i++);
+        int i,j,work[100],count=0;
+        for(i=0;i<M;i++)
+            work[i]=available[i];
+        for(i=0;i<100;i++)
+            isFinished[i]=false;
+        while(count<N)
         {
-        	if(need[i][j]<0)
-        	{
-        		printf("System Is not safe\n");
-            	return;
-            }
-            else
+            bool canAllot=false;
+            for(i=0;i<N;i++)
             {
-            	printf("System is in safe state\n");
-			    printf("Safe sequence: ");
-			    for (i = 0; i < n; i++) 
-			    {
-			        printf("P%d ", sequence[i]);
-			    }
-			    printf("\n");
-			}
-		}
-    }
-    
+                if(isFinished[i]==false)
+                {
+                    for(j=0;j<M;j++)
+                    {
+                        if(work[j]<need[i][j])
+                        {
+                            break;
+                        }
+                    }
+                    if(j==M)
+                    {
+                        for(j=0;j<M;j++)
+                        {
+                            work[j]+=allot[i][j];
+                        }
+                        sequence[count++]=i;
+                        isFinished[i]=true;
+                        canAllot=true;
+                    }
+                }
+            }
+            if(canAllot==false)
+            {
+                printf("System Is  not safe\n");
+                return ;
+            }
+        }
+
+        printf("System is in safe state\n");
+
+        printf("Safe sequence :");
+        for(i=0;i<N;i++)
+            printf("%d ",sequence[i]);
+        printf("\n");
 }
 
-int main() 
+int main()
 {
-    int n, m, i, j;
-    printf("Enter the number of processes and resources: ");
-    scanf("%d%d", &n, &m);
-    printf("Enter the available resources:\n");
-    for (i = 0; i < m; i++) 
-    {
-        scanf("%d", &available[i]);
-    }
-    readAllot(n, m);
-    readMax(n, m);
-    calculateNeed(n, m);
-    displayNeed(n, m);
-    isSafe(n, m);
+        int i,j,N,M;
+        printf("Enter the number of process and resources :");
+        scanf("%d %d",&N,&M);
+
+        printf("Enter the available resources :\n");
+
+        for(i=0;i<M;i++)
+            scanf("%d",&available[i]);
+
+        printf("Enter the Allocation Matrix :\n");
+
+        for(i=0;i<N;i++)
+            for(j=0;j<M;j++)
+                scanf("%d",&allot[i][j]);
+
+        printf("Enter the matrix for maximum demand of each process :\n");
+
+        for(i=0;i<N;i++)
+            for(j=0;j<M;j++)
+                scanf("%d",&max[i][j]);
+
+        //calculation of need matrix
+        for(i=0;i<N;i++)
+            for(j=0;j<M;j++)
+                need[i][j]=max[i][j]-allot[i][j];
+
+        isSafe(N,M);
+
+        int indx,arr[100];
+        printf("Enter the process no for resource request :");
+        scanf("%d",&indx);
+
+        printf("Enter the requested instances of Each :");
+        for(i=0;i<M;i++)
+            scanf("%d",&arr[i]);
+
+        for(i=0;i<M;i++)
+        {
+            if( need[indx][i]<arr[i])
+            {
+                printf("Cannot request\n");
+                break;
+            }
+        }
+
+        if(i==M)
+        {
+            for(i=0;i<M;i++)
+            {
+                allot[indx][i]+=arr[i];
+                available[i]-=arr[i];
+                need[indx][i]-=arr[i];
+            }
+
+            isSafe(N,M);
+        }
 }
-
-/*
-
-Max Allocation
-7 5 3
-3 2 2
-9 0 2
-2 2 2
-4 3 3
-
-Allocation
+/*nj
+Allocation 
 0 1 0
 2 0 0
 3 0 2
 2 1 1
 0 0 2
 
-Available Resources
+Max allocation
+7 5 3
+3 2 2
+9 0 2
+2 2 2
+4 3 3
+
+Avialiable
 3 3 2
 
-output Need:
-7 4 3
-1 2 2
-6 0 0
-0 1 1
-4 3 1
+Request Of process 1
+1 0 2
 
-Safe-Sequence
-P1 -> P3 -> P4 -> P0 -> P2
-*/ 
+*/
